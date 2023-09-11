@@ -1,6 +1,7 @@
 data "aws_ami" "app_ami" {
   most_recent = true
 
+# this deploys a tomcat server by using this filter to find the latest version of this bitnami tomcat server
   filter {
     name   = "name"
     values = ["bitnami-tomcat-*-x86_64-hvm-ebs-nami"]
@@ -14,9 +15,10 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
+# it takes the image created above (aws_ami) and then it provisions an aws instance named 'web'
 resource "aws_instance" "web" {
   ami           = data.aws_ami.app_ami.id
-  instance_type = "t3.nano"
+  instance_type = var.instance_type
 
   tags = {
     Name = "HelloWorld"
