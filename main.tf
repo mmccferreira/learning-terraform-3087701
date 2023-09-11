@@ -16,7 +16,7 @@ data "aws_ami" "app_ami" {
 }
 
 # it takes the image created above (aws_ami) and then it provisions an aws instance named 'web'
-resource "aws_instance" "web" {
+resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
 
